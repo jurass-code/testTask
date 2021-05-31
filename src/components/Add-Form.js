@@ -108,7 +108,7 @@ export default function EditWorker({
                     <option>developer Python</option>
                 </select>              
                 <label className='label-input_marg' htmlFor='dateOfBirth'>Дата рождения:</label>
-                <input className='input' onBlur={validDate} name='dateOfBirth' type='date' min="1900-01-01" max={stringNow} required></input>
+                <input className='input' onBlur={validDate} name='dateOfBirth' type='date' min="1900-01-01" max={stringNow} placeholder='гггг-мм-дд' required></input>
                 <label className='label-input_marg title-radio' htmlFor='gender'>Пол:</label>
                     <div className='radio-box'>
                         <label htmlFor='gender'> Мужской:{'\u00A0'}{'\u00A0'}{'\u00A0'}
@@ -119,14 +119,15 @@ export default function EditWorker({
                         </label> 
                     </div>       
                 <label className='label-input_marg'  htmlFor='dateOfEmployment'>Дата приема на работу:</label>
-                <input className='input' ref={dateOfEmployment} onBlur={validDate} name='dateOfEmployment' type='date' min="1900-01-01" max={stringNow} required></input>
+                <input className='input' ref={dateOfEmployment} onBlur={validDate} name='dateOfEmployment' type='date' min="1900-01-01" max={stringNow} placeholder='гггг-мм-дд' required></input>
                 <label className='label-input_marg' htmlFor='dateOfDismissal'>Дата увольнения:</label>
-                <input className='input' ref={dateOfDismissal} onBlur={validDate} name='dateOfDismissal' type='date' min="1900-01-01" max={stringNow}></input>
+                <input className='input' ref={dateOfDismissal} onBlur={validDate} name='dateOfDismissal' type='date' min="1900-01-01" max={stringNow} placeholder='гггг-мм-дд' ></input>
                 <label className='label-input_marg titlte-checbox' htmlFor='driver'>
                     Наличие прав:{'\u00A0'}{'\u00A0'}{'\u00A0'}
                     <input className='radio' name='driver' type='checkbox'></input>
                 </label>
-                <button className='btn btn-form' type='submit'>Добавить</button> 
+                <button className='btn btn-form' type='submit'>Добавить</button>
+                <i onClick={()=>modalClose(false)} className="fas fa-times modalClose"></i>
             </form>
         </div>
     );
