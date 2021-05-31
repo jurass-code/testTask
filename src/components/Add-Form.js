@@ -9,6 +9,10 @@ export default function EditWorker({
 }) {
     const dateOfEmployment = useRef();
     const dateOfDismissal = useRef();
+    const dateFormater = (date) => {
+        return (date.getFullYear() + (date.getMonth() < 9 ? '-0' + (date.getMonth() + 1) : '-' + (date.getMonth() + 1)) + (date.getDate() < 10 ? '-0' + date.getDate() : '-' + date.getDate()))
+    };
+    const stringNow = dateFormater(new Date())
 
     const validData = {
         name: true,
@@ -59,7 +63,9 @@ export default function EditWorker({
     };
 
     const validDataOfEmployment = (dateForm) => {
+        dateOfDismissal.current.min=dateFormater(dateForm);
         const formDateOfDismissal = new Date(dateOfDismissal.current.value);
+        dateOfDismissal.current.min=dateFormater(dateForm);
         if (dateForm > formDateOfDismissal) {
             validData.dateOfDismissal = false;
             dateOfDismissal.current.classList.add('invalid');
@@ -67,6 +73,9 @@ export default function EditWorker({
     }
     const validDateOfDismissal = (dateForm) => {
         const formDataOfEmployment = new Date(dateOfEmployment.current.value);
+        if(dateOfEmployment.current.value!=='')
+        dateOfDismissal.current.min = dateOfEmployment.current.value;
+        else dateOfDismissal.current.min ='1900-01-01';
         if (dateForm < formDataOfEmployment) {
             validData.dateOfDismissal = false;
             dateOfDismissal.current.classList.add('invalid');
@@ -99,22 +108,22 @@ export default function EditWorker({
                     <option>developer Python</option>
                 </select>              
                 <label className='label-input_marg' htmlFor='dateOfBirth'>Дата рождения:</label>
-                <input className='input' onBlur={validDate} name='dateOfBirth' type='date' required></input>
+                <input className='input' onBlur={validDate} name='dateOfBirth' type='date' min="1900-01-01" max={stringNow} required></input>
                 <label className='label-input_marg title-radio' htmlFor='gender'>Пол:</label>
                     <div className='radio-box'>
-                        <label htmlFor='gender'> Мужской:{'\u00A0'}
+                        <label htmlFor='gender'> Мужской:{'\u00A0'}{'\u00A0'}{'\u00A0'}
                         <input className='radio' type='radio' name='gender' value='Мужской' required />
                         </label>
-                        <label htmlFor='gender'>Женский:{'\u00A0'}
+                        <label htmlFor='gender'>Женский:{'\u00A0'}{'\u00A0'}{'\u00A0'}
                         <input className='radio' type='radio' name='gender' value='Женский' required/>
                         </label> 
                     </div>       
                 <label className='label-input_marg'  htmlFor='dateOfEmployment'>Дата приема на работу:</label>
-                <input className='input' ref={dateOfEmployment} onBlur={validDate} name='dateOfEmployment' type='date' required></input>
+                <input className='input' ref={dateOfEmployment} onBlur={validDate} name='dateOfEmployment' type='date' min="1900-01-01" max={stringNow} required></input>
                 <label className='label-input_marg' htmlFor='dateOfDismissal'>Дата увольнения:</label>
-                <input className='input' ref={dateOfDismissal} onBlur={validDate} name='dateOfDismissal' type='date'></input>
+                <input className='input' ref={dateOfDismissal} onBlur={validDate} name='dateOfDismissal' type='date' min="1900-01-01" max={stringNow}></input>
                 <label className='label-input_marg titlte-checbox' htmlFor='driver'>
-                    Наличие прав:{'\u00A0'}
+                    Наличие прав:{'\u00A0'}{'\u00A0'}{'\u00A0'}
                     <input className='radio' name='driver' type='checkbox'></input>
                 </label>
                 <button className='btn btn-form' type='submit'>Добавить</button> 
